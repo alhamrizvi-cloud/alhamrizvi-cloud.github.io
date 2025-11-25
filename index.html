@@ -601,6 +601,70 @@ Security Note: If you're reading this, you're not supposed to.
                 transform: translate(30px, 30px) rotate(180deg);
             }
         }
+        /* MOBILE RESPONSIVE FIXES */
+    @media (max-width: 768px) {
+
+    /* Navigation */
+    nav {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        gap: 20px;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+    }
+
+    /* Sections */
+    section {
+        padding: 80px 20px;
+        transform: none;
+    }
+
+    /* Hero */
+    .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+        line-height: 1;
+    }
+
+    .hero-sub {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        margin-top: 20px;
+    }
+
+    .scroll-indicator {
+        left: 20px;
+        bottom: 30px;
+    }
+
+    .scroll-line {
+        width: 40px;
+    }
+
+    /* Loader */
+    .loader-text {
+        font-size: 25vw;
+        letter-spacing: -1vw;
+    }
+
+    .loader-sub {
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+    }
+
+    .loader-line {
+        width: 120px !important;
+    }
+
+    /* About section */
+    .about {
+        padding: 60px 20px;
+    }
+            }
     </style>
 </head>
 
