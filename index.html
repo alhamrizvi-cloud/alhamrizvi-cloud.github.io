@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alham Rizvi | Offensive Security</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@100;300;400;600;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #000;
+            --fg: #fff;
+            --accent: #888;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: loaderOut 0.8s ease 3s forwards;
+        }
+
+        .loader-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15vw;
+            font-weight: 900;
+            letter-spacing: -0.5vw;
+            overflow: hidden;
+        }
+
+        .loader-text span {
+            display: inline-block;
+            animation: letterIn 0.6s ease forwards;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        .loader-text span:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .loader-text span:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .loader-text span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .loader-text span:nth-child(4) {
+            animation-delay: 0.25s;
+        }
+
+        .loader-text span:nth-child(5) {
+            animation-delay: 0.3s;
+        }
+
+        .loader-text span:nth-child(6) {
+            animation-delay: 0.35s;
+        }
+
+        .loader-sub {
+            font-size: 1.2rem;
+            letter-spacing: 8px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.8s forwards;
+        }
+
+        .loader-line {
+            width: 0;
+            height: 2px;
+            background: #fff;
+            margin-top: 30px;
+            animation: lineGrow 2s ease 1s forwards;
+        }
+
+        @keyframes letterIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes lineGrow {
+            to {
+                width: 200px;
+            }
+        }
+
+        @keyframes loaderOut {
+            to {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+
+        /* Grain overlay */
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 120px 80px;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-title .line span {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-title .line:nth-child(2) span {
+            animation-delay: 0.15s;
+        }
+
+        .hero-title .line:nth-child(3) span {
+            animation-delay: 0.3s;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            margin-top: 40px;
+            opacity: 0;
+            animation: fadeIn 1s ease 3.5s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 80px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            animation: fadeIn 1s ease 4s forwards;
+        }
+
+        .scroll-line {
+            width: 60px;
+            height: 1px;
+            background: #fff;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* About */
+        .about {
+            background: #fff;
+            color: #000;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 6px;
+            opacity: 0.5;
+            margin-bottom: 60px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+<!-- 
+===========================================
+  INTERNAL DEBUG INFO - DO NOT DELETE
+===========================================
+
+API_Key = "YXJlIHUgZnJlYWtpbmcgc3R1cGlkIGJybywgaSBkb24ndCBoYXZlIHNraWxsIGlzc3VlcyBsaWtlIG90aGVyIGRldmVsb3BlcnMgPz8hCgoK"
+
+System Status: OK
+Security Note: If you're reading this, you're not supposed to.
+===========================================
+-->
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.2;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+        }
+
+        .about-text {
+            font-size: 1.8rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .about-text strong {
+            font-weight: 600;
+        }
+
+        .stats {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .stat {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+        }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            margin-top: 10px;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #222;
+            margin-top: 60px;
+        }
+
+        .skill-card {
+            background: #000;
+            padding: 50px 40px;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: #fff;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .skill-card:hover::before {
+            transform: translateY(0);
+        }
+
+        .skill-card:hover {
+            color: #000;
+        }
+
+        .skill-card * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        .skill-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .skill-desc {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            line-height: 1.7;
+        }
+
+        /* Experience */
+        .exp {
+            background: #0a0a0a;
+        }
+
+        .timeline {
+            margin-top: 60px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 60px;
+            padding: 50px 0;
+            border-bottom: 1px solid #222;
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item:hover {
+            padding-left: 30px;
+            background: #111;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            opacity: 0.4;
+            letter-spacing: 2px;
+        }
+
+        .timeline-role {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .timeline-company {
+            font-size: 1rem;
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+
+        /* Projects */
+        .projects {
+            background: #fff;
+            color: #000;
+        }
+
+        .project-grid {
+            margin-top: 60px;
+        }
+
+        .project-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            padding: 80px 0;
+            border-bottom: 1px solid #ddd;
+            transition: all 0.5s ease;
+        }
+
+        .project-item:hover {
+            padding-left: 30px;
+        }
+
+        .project-num {
+            font-family: 'Outfit', sans-serif;
+            font-size: 8rem;
+            font-weight: 900;
+            line-height: 1;
+            opacity: 0.1;
+        }
+
+        .project-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .project-desc {
+            font-size: 1.1rem;
+            opacity: 0.6;
+            line-height: 1.8;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            padding: 8px 20px;
+            border: 1px solid #000;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        /* Contact */
+        .contact {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .contact-links {
+            margin-top: 60px;
+            display: flex;
+            gap: 50px;
+        }
+
+        .contact-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            position: relative;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-color: #fff;
+            padding-left: 20px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 80px;
+            border-top: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            opacity: 0.4;
+        }
+
+        /* Floating elements */
+        .float-circle {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 20s ease infinite;
+        }
+
+        .float-circle:nth-child(1) {
+            top: 10%;
+            right: 10%;
+        }
+
+        .float-circle:nth-child(2) {
+            bottom: 20%;
+            left: 5%;
+            animation-delay: -10s;
+            width: 200px;
+            height: 200px;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            50% {
+                transform: translate(30px, 30px) rotate(180deg);
+            }
+        }
+        /* MOBILE RESPONSIVE FIXES */
+    @media (max-width: 768px) {
+
+    /* Navigation */
+    nav {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        gap: 20px;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+    }
+
+    /* Sections */
+    section {
+        padding: 80px 20px;
+        transform: none;
+    }
+
+    /* Hero */
+    .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+        line-height: 1;
+    }
+
+    .hero-sub {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        margin-top: 20px;
+    }
+
+    .scroll-indicator {
+        left: 20px;
+        bottom: 30px;
+    }
+
+    .scroll-line {
+        width: 40px;
+    }
+
+    /* Loader */
+    .loader-text {
+        font-size: 25vw;
+        letter-spacing: -1vw;
+    }
+
+    .loader-sub {
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+    }
+
+    .loader-line {
+        width: 120px !important;
+    }
+
+    /* About section */
+    .about {
+        padding: 60px 20px;
+    }
+            }
+    </style>
+</head>
+
+<body>
+    <div class="loader">
+        <div class="loader-text"><span>A</span><span>L</span><span>H</span><span>A</span><span>M</span></div>
+        <div class="loader-sub">SECURITY RESEARCHER</div>
+        <div class="loader-line"></div>
+    </div>
+
+    <div class="grain"></div>
+    <div class="float-circle"></div>
+    <div class="float-circle"></div>
+
+    <nav>
+        <div class="logo">AR.</div>
+        <div class="nav-links">
+            <a href="#about">ABOUT</a>
+            <a href="#skills">SKILLS</a>
+            <a href="#experience">WORK</a>
+            <a href="#projects">PROJECTS</a>
+            <a href="#contact">CONTACT</a>
+        </div>
+    </nav>
+
+    <section class="hero visible">
+        <h1 class="hero-title">
+            <span class="line"><span>ALHAM</span></span>
+            <span class="line"><span>RIZVI</span></span>
+            </span>
+        </h1>
+        <p class="hero-sub">PENETRATION TESTER • SECURITY RESEARCHER • RED TEAM</p>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>SCROLL</span>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="section-label">001 — ABOUT</div>
+        <div class="about-content">
+            <div class="about-text">
+                I'm <strong>Alham Rizvi</strong>, a passionate offensive security researcher focused on discovering vulnerabilities across <strong>web applications, APIs, and cloud environments</strong>. I combine automated testing with manual research to break systems and make them stronger.
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">WRITEUPS PUBLISHED</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">400+</div>
+                    <div class="stat-label">LABS COMPLETED</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">#6</div>
+                    <div class="stat-label">TRYHACKME RANK</div>
+                </div>
+            </div>
+        </div>
+         <a href="https://github.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/blob/main/ALHAM-RIZVI-FlowCV-Resume-20251122-4.pdf" target="_blank" 
+           style="display:inline-block; margin-top:20px; padding:12px 24px; background-color:#1e90ff; color:#fff; font-weight:bold; text-decoration:none; border-radius:8px; box-shadow:0 4px 6px rgba(0,0,0,0.1); transition:all 0.3s ease;">
+            Download Resume
+         </a>    
+        <a href="https://beacons.ai/alhamrizvi" target="_blank" 
+           style="display:inline-block; margin-top:20px; padding:12px 24px; background-color:#1e90ff; color:#fff; font-weight:bold; text-decoration:none; border-radius:8px; box-shadow:0 4px 6px rgba(0,0,0,0.1); transition:all 0.3s ease;">
+            My Links
+         </a>    
+    </section>
+
+    <section class="skills" id="skills">
+        <div class="section-label">002 — EXPERTISE</div>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-icon">⚔️</div>
+                <div class="skill-title">Penetration Testing</div>
+                <div class="skill-desc">Web, API & Network pentesting with focus on privilege escalation and lateral movement</div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🔍</div>
+                <div class="skill-title">Security Research</div>
+                <div class="skill-desc">JS recon, parameter discovery, API key exposure, and PoC development</div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🛡️</div>
+                <div class="skill-title">Application Security</div>
+                <div class="skill-desc">Authentication bypass, access control testing, business logic flaws</div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🖥️</div>
+                <div class="skill-title">Infrastructure</div>
+                <div class="skill-desc">Linux/Windows security, network protocols, system hardening</div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">🐍</div>
+                <div class="skill-title">Automation</div>
+                <div class="skill-desc">Python, Bash scripting for custom security tooling and workflows</div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon">☁️</div>
+                <div class="skill-title">Cloud Security</div>
+                <div class="skill-desc">AWS, Azure reconnaissance and misconfiguration hunting</div>
+            </div>
+        </div>
+    </section>
+    <section class="languages" id="languages">
+        <div class="section-label">005 — PROGRAMMING & LANGUAGES</div>
+        <div class="about-content">
+            <div>
+                <div class="about-text" style="font-size: 1.4rem; margin-bottom: 40px;">
+                    <strong>Programming Languages</strong>
+                </div>
+                <div class="project-tags" style="margin-top: 0;">
+                    <span class="project-tag">PYTHON</span>
+                    <span class="project-tag">BASH</span>
+                    <span class="project-tag">JAVASCRIPT</span>
+                    <span class="project-tag">SQL</span>
+                    <span class="project-tag">PHP</span>
+                </div>
+            </div>
+            <div>
+                <div class="about-text" style="font-size: 1.4rem; margin-bottom: 40px;">
+                    <strong>Spoken Languages</strong>
+                </div>
+                <div class="timeline-desc">
+                    <strong>English</strong> — Professional proficiency<br>
+                    <strong>Hindi</strong> — Native proficiency
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="certifications" id="certifications">
+        <div class="section-label">006 — CERTIFICATIONS</div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">INE</div>
+                <div>
+                    <div class="timeline-role">eJPT — Junior Penetration Tester</div>
+                    <div class="timeline-desc">Industry-recognized certification validating practical penetration testing skills across network security, web application testing, and system exploitation.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">SECURITY BLUE TEAM</div>
+                <div>
+                    <div class="timeline-role">CRTA — Certified Red Team Analyst</div>
+                    <div class="timeline-desc">Advanced red team certification covering adversary simulation, command & control, persistence mechanisms, and evasion techniques.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">CISCO</div>
+                <div>
+                    <div class="timeline-role">Junior Penetration Testing, Ethical Hacking & Endpoint Security</div>
+                    <div class="timeline-desc">Comprehensive Cisco certification suite covering penetration testing methodologies, ethical hacking techniques, and endpoint security best practices.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">VIRTUAL EXPERIENCE</div>
+                <div>
+                    <div class="timeline-role">Cybersecurity Analyst Programs</div>
+                    <div class="timeline-company">Tata • Deloitte • Mastercard</div>
+                    <div class="timeline-desc">Completed virtual cybersecurity analyst programs with leading global firms, gaining insights into real-world security operations and incident response workflows.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="exp" id="experience">
+        <div class="section-label">003 — EXPERIENCE</div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2025 — PRESENT</div>
+                <div>
+                    <div class="timeline-role">Security Researcher</div>
+                    <div class="timeline-company">Intigriti • HackerOne</div>
+                    <div class="timeline-desc">Reported 5+ security findings including exposed JS files in S3 buckets. Successfully disclosed subdomain takeover and JWT misconfigurations to private programs with confirmed remediation.</div>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2025 — PRESENT</div>
+                <div>
+                    <div class="timeline-role">Security Writeups Author</div>
+                    <div class="timeline-company">Independent</div>
+                    <div class="timeline-desc">Authored 150+ hands-on writeups covering CTF challenges, web exploitation, and real-world bug hunting with detailed methodology documentation.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <div class="section-label">004 — PROJECTS</div>
+        <div class="project-grid">
+            <div class="project-item">
+                <div class="project-num">01</div>
+                <div>
+                    <div class="project-name">Tr10d</div>
+                    <div class="project-desc">CLI tool for security researchers and bug bounty hunters to detect exposed API keys and tokens from web pages. Built with Python featuring regex scanning and automation.</div>
+                    <div class="project-tags"><span class="project-tag">PYTHON</span><span class="project-tag">CLI</span><span class="project-tag">AUTOMATION</span></div>
+                </div>
+            </div>
+            <div class="project-item">
+                <div class="project-num">02</div>
+                <div>
+                    <div class="project-name">Citizen-Connect</div>
+                    <div class="project-desc">University field project creating a unified platform for Indian government services with AI chatbot support for citizen assistance.</div>
+                    <div class="project-tags"><span class="project-tag">WEB</span><span class="project-tag">AI</span><span class="project-tag">FULLSTACK</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="section-label">005 — GET IN TOUCH</div>
+        <h2 class="contact-title">LET'S WORK<br>TOGETHER</h2>
+        <div class="contact-links">
+            <a href="mailto:its47h4m@gmail.com" class="contact-link">EMAIL</a>
+            <a href="https://linkedin.com/in/alham-rizvi" class="contact-link">LINKEDIN</a>
+            <a href="https://github.com/alhamrizvi-cloud" class="contact-link">GITHUB</a>
+            <a href="https://beacons.ai/alhamrizvi/links" class="contact-link">ALL LINKS</a>
+        </div>
+    </section>
+
+    <footer>
+        <span>© 2025 ALHAM RIZVI</span>
+        <span>Built By Alham Rizvi</span>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
