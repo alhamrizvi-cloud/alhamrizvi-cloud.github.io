@@ -4,13 +4,288 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alham Rizvi - Offensive Security Portfolio</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-grid { animation: gridMove 20s linear infinite; }
+        .animate-shimmer { animation: shimmer 2s infinite; }
+        .animate-gradient { 
+            background-size: 200% auto;
+            animation: gradient 3s linear infinite;
+        }
+        .animate-fade-in { animation: fadeIn 1s ease-out; }
+        .animate-fade-in-delay { animation: fadeIn 1s ease-out 0.3s both; }
+        .animate-slide-up { animation: slideUp 1s ease-out 0.2s both; }
+        .animate-bounce-slow { animation: bounce 2s ease-in-out infinite; }
+        .skill-bar { width: 0%; transition: width 1s ease-out; }
+        .skill-bar.animate { width: var(--skill-level); }
+    </style>
 </head>
-<body>
-    <div id="root"></div>
-    <script type="text/babel" src="app.js"></script>
+<body class="bg-gray-900">
+    <div class="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white overflow-hidden">
+        <!-- Animated background grid -->
+        <div class="fixed inset-0 opacity-10">
+            <div class="absolute inset-0 animate-grid" style="background-image: linear-gradient(rgba(255,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,0,0,0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center px-4">
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute bg-red-500 rounded-full opacity-20 blur-xl animate-float" style="width: 200px; height: 200px; left: 10%; top: 20%;"></div>
+                <div class="absolute bg-red-500 rounded-full opacity-20 blur-xl animate-float" style="width: 300px; height: 300px; left: 70%; top: 50%; animation-delay: 2s;"></div>
+                <div class="absolute bg-orange-500 rounded-full opacity-20 blur-xl animate-float" style="width: 250px; height: 250px; left: 40%; top: 70%; animation-delay: 4s;"></div>
+            </div>
+
+            <div class="relative z-10 text-center max-w-5xl">
+                <div class="mb-8 inline-block animate-bounce-slow">
+                    <svg class="w-24 h-24 text-red-500 mx-auto drop-shadow-[0_0_30px_rgba(239,68,68,0.5)]" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                </div>
+                <h1 class="text-7xl font-bold mb-6 animate-fade-in">
+                    <span class="bg-gradient-to-r from-red-500 via-orange-500 to-red-500 bg-clip-text text-transparent animate-gradient">
+                        ALHAM RIZVI
+                    </span>
+                </h1>
+                <h2 class="text-4xl font-light mb-8 text-gray-300 animate-slide-up">
+                    Offensive Security Researcher & Penetration Tester
+                </h2>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-4 animate-fade-in-delay">
+                    Breaking systems to build stronger defenses. Specializing in advanced exploitation techniques and vulnerability research.
+                </p>
+                <p class="text-lg text-gray-500 mb-12 animate-fade-in-delay">
+                    Mumbai, Maharashtra • its47h4m@gmail.com • +91 8329478587
+                </p>
+                
+                <div class="flex gap-6 justify-center mb-12 flex-wrap">
+                    <button class="group px-8 py-4 bg-gradient-to-r from-red-600 to-orange-600 rounded-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-lg shadow-red-500/50 hover:shadow-red-500/80 flex items-center gap-2">
+                        <svg class="w-5 h-5 group-hover:animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Download Resume
+                    </button>
+                    <button class="px-8 py-4 border-2 border-red-500 rounded-lg font-semibold hover:bg-red-500/10 transition-all duration-300">
+                        Contact Me
+                    </button>
+                </div>
+
+                <!-- Social Links -->
+                <div class="flex gap-6 justify-center animate-fade-in-delay flex-wrap">
+                    <a href="https://github.com/alham-rizvi" target="_blank" rel="noopener noreferrer" 
+                       class="group p-4 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700 hover:border-red-500 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/30">
+                        <svg class="w-6 h-6 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/in/alham-rizvi" target="_blank" rel="noopener noreferrer"
+                       class="group p-4 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700 hover:border-red-500 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/30">
+                        <svg class="w-6 h-6 group-hover:text-red-500 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="https://tryhackme.com/p/alhamrizvi" target="_blank" rel="noopener noreferrer"
+                       class="group p-4 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700 hover:border-red-500 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/30">
+                        <svg class="w-6 h-6 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:its47h4m@gmail.com" 
+                       class="group p-4 bg-gray-800/50 backdrop-blur-sm rounded-full border border-gray-700 hover:border-red-500 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/30">
+                        <svg class="w-6 h-6 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="relative py-32 px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-5xl font-bold text-center mb-4">
+                    <span class="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                        TECHNICAL ARSENAL
+                    </span>
+                </h2>
+                <p class="text-center text-gray-400 mb-16 text-lg">Weapons of choice in the cybersecurity battlefield</p>
+                
+                <div class="grid md:grid-cols-2 gap-8" id="skills-grid">
+                    <!-- Skills will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section class="relative py-32 px-4 bg-black/30">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-5xl font-bold text-center mb-16">
+                    <span class="bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent">
+                        CERTIFICATIONS
+                    </span>
+                </h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-red-500/30 hover:border-red-500 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/30 animate-float">
+                        <svg class="w-12 h-12 text-red-500 mb-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-2 text-white">CRTA</h3>
+                        <p class="text-sm text-gray-400 mb-2">Certified Red Team Analyst</p>
+                        <span class="text-xs text-red-400 font-semibold">2025</span>
+                    </div>
+                    
+                    <div class="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-red-500/30 hover:border-red-500 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/30 animate-float" style="animation-delay: 0.2s;">
+                        <svg class="w-12 h-12 text-red-500 mb-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-2 text-white">eJPT</h3>
+                        <p class="text-sm text-gray-400 mb-2">eLearnSecurity Junior Penetration Tester</p>
+                        <span class="text-xs text-red-400 font-semibold">2025</span>
+                    </div>
+                    
+                    <div class="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-red-500/30 hover:border-red-500 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/30 animate-float" style="animation-delay: 0.4s;">
+                        <svg class="w-12 h-12 text-red-500 mb-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-2 text-white">CNSP</h3>
+                        <p class="text-sm text-gray-400 mb-2">Certified Network Security Practitioner</p>
+                        <span class="text-xs text-red-400 font-semibold">2025</span>
+                    </div>
+                    
+                    <div class="group relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-red-500/30 hover:border-red-500 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-500/30 animate-float" style="animation-delay: 0.6s;">
+                        <svg class="w-12 h-12 text-red-500 mb-4 group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <h3 class="text-3xl font-bold mb-2 text-white">CAPIE</h3>
+                        <p class="text-sm text-gray-400 mb-2">Certified API Hacking Expert</p>
+                        <span class="text-xs text-red-400 font-semibold">2025</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="relative py-32 px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-4 gap-8 text-center">
+                    <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-500 hover:scale-105">
+                        <div class="text-5xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mb-2">
+                            Top #6
+                        </div>
+                        <div class="text-gray-400">TryHackMe Rank</div>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-500 hover:scale-105">
+                        <div class="text-5xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mb-2">
+                            400+
+                        </div>
+                        <div class="text-gray-400">CTF Labs Completed</div>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-500 hover:scale-105">
+                        <div class="text-5xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mb-2">
+                            200+
+                        </div>
+                        <div class="text-gray-400">Security Writeups</div>
+                    </div>
+                    
+                    <div class="bg-gray-800/30 backdrop-blur-sm p-8 rounded-xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-500 hover:scale-105">
+                        <div class="text-5xl font-bold bg-gradient-to-r from-red-500 to-orange-500 bg-clip-text text-transparent mb-2">
+                            5
+                        </div>
+                        <div class="text-gray-400">Verified Vulnerabilities</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Skills data
+        const skills = [
+            { name: 'Penetration Testing', level: 95, color: 'from-red-500 to-orange-500' },
+            { name: 'Exploit Development', level: 90, color: 'from-purple-500 to-pink-500' },
+            { name: 'Network Security', level: 88, color: 'from-blue-500 to-cyan-500' },
+            { name: 'Web Application Testing', level: 92, color: 'from-green-500 to-emerald-500' },
+            { name: 'Social Engineering', level: 85, color: 'from-yellow-500 to-orange-500' },
+            { name: 'Reverse Engineering', level: 87, color: 'from-indigo-500 to-purple-500' },
+            { name: 'Cryptography', level: 82, color: 'from-pink-500 to-red-500' },
+            { name: 'Database Exploitation', level: 89, color: 'from-teal-500 to-green-500' }
+        ];
+
+        // Populate skills
+        const skillsGrid = document.getElementById('skills-grid');
+        skills.forEach((skill, index) => {
+            const skillCard = document.createElement('div');
+            skillCard.className = 'group bg-gray-800/30 backdrop-blur-sm p-6 rounded-xl border border-gray-700/50 hover:border-red-500/50 transition-all duration-500 hover:shadow-lg hover:shadow-red-500/20';
+            skillCard.innerHTML = `
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="p-3 rounded-lg bg-gradient-to-br ${skill.color} group-hover:scale-110 transition-transform duration-300">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-white">${skill.name}</h3>
+                        <span class="text-sm text-gray-400">${skill.level}% Proficiency</span>
+                    </div>
+                </div>
+                <div class="relative h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                    <div class="skill-bar absolute inset-y-0 left-0 bg-gradient-to-r ${skill.color} rounded-full" 
+                         style="--skill-level: ${skill.level}%; box-shadow: 0 0 20px rgba(239, 68, 68, 0.4)">
+                        <div class="absolute inset-0 bg-white/20 animate-shimmer"></div>
+                    </div>
+                </div>
+            `;
+            skillsGrid.appendChild(skillCard);
+        });
+
+        // Animate skill bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    skillBars.forEach(bar => {
+                        bar.classList.add('animate');
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(document.getElementById('skills'));
+    </script>
 </body>
 </html>
