@@ -702,4 +702,333 @@
 
             .section {
                 padding: 60px 20px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .projects-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="logo">
+            <i class="fas fa-shield-halved"></i>
+            ALHAM RIZVI
+        </div>
+        <div class="nav-links">
+            <a href="#home"><i class="fas fa-home"></i> Home</a>
+            <a href="#skills"><i class="fas fa-code"></i> Skills</a>
+            <a href="#projects"><i class="fas fa-folder-open"></i> Projects</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+    </nav>
+
+    <div class="motto-banner">
+        <p>🔒 OFFENSIVE SECURITY RESEARCHER • WEB • API • NETWORK & CLOUD SECURITY • AI 🔒</p>
+    </div>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-title">ꗥ～ꗥ 𝐀𝐥𝐡𝐚𝐦 𝐑𝐢𝐳𝐯𝐢 ꗥ～ꗥ</div>
+            <h1>🛡️ Offensive Security Researcher 🔒</h1>
+            <p>🚀 Penetration Tester | Bug Bounty Hunter | Top #6 TryHackMe 💻</p>
+            <div class="cta-buttons">
+                <button class="cta-button" onclick="window.location.href='mailto:its47h4m@gmail.com?subject=Project%20Inquiry'">
+                    <i class="fas fa-briefcase"></i> Get Project
+                </button>
+                <button class="cta-button secondary" onclick="window.location.href='#projects'">
+                    <i class="fas fa-eye"></i> View Projects
+                </button>
+            </div>
+        </div>
+        <div class="scroll-indicators">
+            <div class="scroll-indicator" onclick="document.querySelector('#skills').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-arrow-down"></i>
+                <span>📋 View Skills</span>
+            </div>
+            <div class="scroll-indicator" onclick="window.location.href='mailto:its47h4m@gmail.com'">
+                <i class="fas fa-envelope"></i>
+                <span>✉️ Contact Me</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">7+ 🐞</div>
+                <div class="stat-label">Verified Vulnerabilities</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">#6 🏆</div>
+                <div class="stat-label">National TryHackMe Rank</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">200+ 📝</div>
+                <div class="stat-label">Security Writeups</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">3+ 💼</div>
+                <div class="stat-label">Professional Experience</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);">
+        <h2 class="section-title">🔧 Skills & Expertise 🛠️</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>🎯 Offensive Security</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Penetration Testing</span>
+                    <span class="skill-tag">VAPT</span>
+                    <span class="skill-tag">Bug Bounty</span>
+                    <span class="skill-tag">Exploitation</span>
+                    <span class="skill-tag">OWASP Top 10</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3>🌐 Web & API Security</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">SQLi</span>
+                    <span class="skill-tag">XSS</span>
+                    <span class="skill-tag">CSRF</span>
+                    <span class="skill-tag">IDOR</span>
+                    <span class="skill-tag">API Testing</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3>💻 Programming</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Bash</span>
+                    <span class="skill-tag">PowerShell</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Automation</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3>🔨 Security Tools</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Burp Suite</span>
+                    <span class="skill-tag">Metasploit</span>
+                    <span class="skill-tag">Nmap</span>
+                    <span class="skill-tag">Wireshark</span>
+                    <span class="skill-tag">OWASP ZAP</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3>☁️ Cloud & Network</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Network Pentesting</span>
+                    <span class="skill-tag">Cloud Security</span>
+                    <span class="skill-tag">AD Pentesting</span>
+                    <span class="skill-tag">Firewall Config</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <h3>🔍 Reconnaissance</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">OSINT</span>
+                    <span class="skill-tag">Subdomain Enum</span>
+                    <span class="skill-tag">Port Scanning</span>
+                    <span class="skill-tag">Passive Recon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title">🚀 Featured Projects 💡</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>🔍 Aspen-Framework</h3>
+                <p>Automated reconnaissance tool featuring comprehensive subdomain enumeration, intelligent port scanning, DNS analysis, and passive reconnaissance capabilities for thorough security assessment.</p>
+                <a href="https://github.com/alhamrizvi-cloud/Aspen-Framework" target="_blank" class="project-btn">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+
+            <div class="project-card">
+                <h3>🚪 403kill</h3>
+                <p>Advanced HTTP 403 bypass tool that intelligently detects 403 forbidden responses and performs sophisticated header-based and path-based bypass techniques to identify access control vulnerabilities.</p>
+                <a href="https://github.com/alhamrizvi-cloud/403kill" target="_blank" class="project-btn">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+
+            <div class="project-card">
+                <h3>🔐 Tr10d</h3>
+                <p>Professional JavaScript secrets scanner capable of detecting 40+ secret types with deep code analysis, multithreading support, and advanced regex filtering for comprehensive security auditing.</p>
+                <a href="https://github.com/alhamrizvi-cloud/Tr10d" target="_blank" class="project-btn">
+                    <i class="fab fa-github"></i> View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);">
+        <h2 class="section-title">💼 Professional Experience 🏢</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-title">🔒 Cybersecurity Intern</div>
+                    <div class="experience-date">12/2025 – Present</div>
+            </div>
+            <div class="experience-company">Redynox Cybersecurity Solutions</div>
+            <div class="experience-description">
+                Managing firewall configurations, performing Wireshark traffic analysis, and conducting vulnerability scanning with OWASP ZAP. Exploiting SQLi, XSS, and CSRF vulnerabilities to enhance security postures.
+            </div>
+        </div>
+
+        <div class="experience-item">
+            <div class="experience-header">
+                <div class="experience-title">🔐 Penetration Testing Intern</div>
+                <div class="experience-date">07/2025 – 11/2025</div>
+            </div>
+            <div class="experience-company">TheWebsiteMakers Pvt. Ltd.</div>
+            <div class="experience-description">
+                Hands-on experience with Nmap, Metasploit, and Burp Suite. Performed comprehensive vulnerability scanning, security assessments, and delivered detailed penetration testing reports and documentation.
+            </div>
+        </div>
+
+        <div class="experience-item">
+            <div class="experience-header">
+                <div class="experience-title">🐞 Security Researcher — Bug Hunter</div>
+                <div class="experience-date">Ongoing</div>
+            </div>
+            <div class="experience-company">Intigriti, HackerOne, OBB</div>
+            <div class="experience-description">
+                Successfully identified and reported 7 verified vulnerabilities. Conducted extensive reconnaissance, developed proof-of-concepts, created comprehensive security reports, and verified remediation efforts.
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);">
+    <h2 class="section-title">🎓 Certifications 🏆</h2>
+    <div class="certifications-grid">
+        <div class="cert-card">
+            <div class="cert-name">🎓 CRTA</div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-name">🔐 eJPT</div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-name">🛡️ CNSP</div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-name">🔒 Fortinet Certified Associate</div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-name">⚡ CAPIE</div>
+        </div>
+        <div class="cert-card">
+            <div class="cert-name">🎯 Penetration Testing Engineer</div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact-section">
+    <h2 class="section-title">📧 Get In Touch 🤝</h2>
+    <p style="color: #aaaaaa; max-width: 600px; margin: 0 auto 40px; line-height: 1.6;">
+        Looking for a penetration tester or security researcher? Let's connect! I'm available for security assessments, bug bounty collaborations, and freelance projects.
+    </p>
+    <div class="contact-grid">
+        <a href="mailto:its47h4m@gmail.com" class="contact-item">
+            <div class="contact-label">📧 Email</div>
+            <div class="contact-value">its47h4m@gmail.com</div>
+        </a>
+        <a href="https://github.com/alhamrizvi-cloud" target="_blank" class="contact-item">
+            <div class="contact-label">💻 GitHub</div>
+            <div class="contact-value">alhamrizvi-cloud</div>
+        </a>
+        <a href="https://linkedin.com/in/alham-rizvi" target="_blank" class="contact-item">
+            <div class="contact-label">💼 LinkedIn</div>
+            <div class="contact-value">alham-rizvi</div>
+        </a>
+        <a href="https://tryhackme.com/p/Alhamrizvii" target="_blank" class="contact-item">
+            <div class="contact-label">🎯 TryHackMe</div>
+            <div class="contact-value">Alhamrizvii</div>
+        </a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>💼 About Alham Rizvi</h3>
+            <p>Offensive Security Researcher & Penetration Tester specializing in Web, API, Network, and Cloud Security. Verified bug bounty hunter ranked Top #6 nationally on TryHackMe with 7+ verified vulnerabilities and 200+ security writeups.</p>
+            <p style="margin-top: 15px;">📍 Mumbai, Maharashtra, India</p>
+        </div>
+        
+        <div class="footer-section">
+            <h3>🔗 Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#skills">Skills & Expertise</a>
+            <a href="#projects">Featured Projects</a>
+            <a href="#contact">Contact Me</a>
+            <a href="https://alhamrizvi-cloud.github.io/" target="_blank">Portfolio Website</a>
+        </div>
+        
+        <div class="footer-section">
+            <h3>🌐 Connect With Me</h3>
+            <a href="https://github.com/alhamrizvi-cloud" target="_blank">GitHub - alhamrizvi-cloud</a>
+            <a href="https://linkedin.com/in/alham-rizvi" target="_blank">LinkedIn - Alham Rizvi</a>
+            <a href="https://instagram.com/alhamrizvii" target="_blank">Instagram - @alhamrizvii</a>
+            <a href="https://twitter.com/Alhamrizvii" target="_blank">Twitter - @Alhamrizvii</a>
+            <a href="https://tryhackme.com/p/Alhamrizvii" target="_blank">TryHackMe - Alhamrizvii</a>
+            <a href="mailto:its47h4m@gmail.com">Email - its47h4m@gmail.com</a>
+        </div>
+        
+        <div class="footer-section">
+            <h3>🏆 Achievements</h3>
+            <p>🥇 Top #6 National Rank - TryHackMe (2025)</p>
+            <p>🐞 7+ Verified Bug Bounty Reports</p>
+            <p>📝 200+ Cybersecurity Writeups</p>
+            <p>🎓 Multiple Security Certifications</p>
+            <p>🔍 Active Bug Bounty Hunter on Intigriti, HackerOne & OBB</p>
+        </div>
+    </div>
+    
+    <div class="social-links">
+        <a href="https://github.com/alhamrizvi-cloud" target="_blank" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/alham-rizvi" target="_blank" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://instagram.com/alhamrizvii" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+    </div>
+    
+    <div class="footer-bottom">
+        <p class="built-by">⚡ Built with 💚 by Alham Rizvi ⚡</p>
+        <p>&copy; 2025 Alham Rizvi. All rights reserved. | Offensive Security Researcher & Penetration Tester</p>
+        <p style="margin-top: 10px; color: #666666;">Securing the digital world, one vulnerability at a time.</p>
+    </div>
+</footer>
+                </div>
+                <div class="experience-company">TechnoHacks Solutions Pvt. Ltd.</div>
+                <div class="experience-description">
+                    Conducting Wireshark packet analysis, Nmap network scanning, and penetration testing using OWASP methodologies. Developing Python automation scripts, executing phishing simulations, and creating incident response documentation.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div class="experience-title">🛡️ Security Analyst</div>
+                    <div class="experience-date">
             
