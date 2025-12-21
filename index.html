@@ -781,6 +781,61 @@
             animation: fadeInUp 0.8s ease forwards;
         }
 
+        .dropdown-section {
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-header {
+            padding: 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .dropdown-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-title {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(90deg, #ffffff 0%, #888888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dropdown-arrow {
+            font-size: 24px;
+            color: #ffffff;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-arrow.active {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease;
+            padding: 0 30px;
+        }
+
+        .dropdown-content.active {
+            max-height: 2000px;
+            padding: 30px;
+        }
+
         .chatbot-container {
             position: fixed;
             bottom: 30px;
@@ -1043,7 +1098,7 @@
         </div>
         
         <div class="cta-buttons">
-            <a href="https://alhamrizvi.wordpress.com/" ?subject=Project%20Inquiry%20-%20Hire%20Alham" class="cta-button">My Blog</a>
+            <a href="mailto:its47h4m@gmail.com?subject=Project%20Inquiry%20-%20Hire%20Alham" class="cta-button">Hire Me</a>
             <a href="#" class="cta-button" onclick="alert('Add your resume URL/Google Drive link here'); return false;">Download Resume</a>
         </div>
 
@@ -1392,7 +1447,7 @@
             </div>
         </div>
         <div class="view-cert-btn">
-            <button class="view-btn" onclick="alert('https://www.linkedin.com/in/alham-rizvi/details/certifications/'); return false;">View All My Certifications</button>
+            <button class="view-btn" onclick="alert('Add link to your certification portfolio or LinkedIn profile'); return false;">View All My Certifications</button>
         </div>
     </section>
 
