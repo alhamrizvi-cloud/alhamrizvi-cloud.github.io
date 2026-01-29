@@ -68,7 +68,6 @@
             50% { opacity: 0.6; }
         }
 
-        /* Enhanced Glass Effect */
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(40px) saturate(180%);
@@ -89,7 +88,6 @@
                 inset 0 1px 2px 0 rgba(255, 255, 255, 0.15);
         }
 
-        /* Navigation */
         nav {
             position: fixed;
             top: 20px;
@@ -116,19 +114,12 @@
             gap: 16px;
         }
 
-        .nav-left {
+        .nav-left, .nav-right {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Theme Toggle */
         .theme-toggle {
             width: 44px;
             height: 44px;
@@ -140,7 +131,6 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s var(--transition-smooth);
-            position: relative;
         }
 
         .theme-toggle:hover {
@@ -153,7 +143,6 @@
             transition: all 0.3s var(--transition-smooth);
         }
 
-        /* Search Bar */
         .search-container {
             flex: 1;
             position: relative;
@@ -191,7 +180,6 @@
             pointer-events: none;
         }
 
-        /* Hamburger Menu */
         .menu-toggle {
             width: 44px;
             height: 44px;
@@ -233,7 +221,6 @@
             transform: rotate(-45deg) translate(6px, -6px);
         }
 
-        /* Side Menu */
         .side-menu {
             position: fixed;
             right: -100%;
@@ -301,7 +288,6 @@
             color: var(--accent);
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -342,19 +328,6 @@
             transition: transform 0.5s var(--transition-smooth);
         }
 
-        .profile-image::after {
-            content: none;
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: var(--text-secondary);
-            background: var(--bg-secondary);
-        }
-
         .profile-image:hover {
             transform: scale(1.05) rotate(2deg);
             box-shadow: 0 25px 80px var(--glass-shadow);
@@ -364,7 +337,6 @@
             transform: scale(1.1);
         }
 
-        /* Social Links Below Profile */
         .social-links-hero {
             display: flex;
             justify-content: center;
@@ -426,7 +398,6 @@
             font-weight: 400;
         }
 
-        /* Swipe to Know More */
         .swipe-indicator {
             position: absolute;
             bottom: 40px;
@@ -457,7 +428,6 @@
             50% { transform: translate(-50%, -10px); }
         }
 
-        /* Section Base */
         section {
             padding: 120px 20px;
             position: relative;
@@ -483,88 +453,87 @@
             margin: 0 auto;
         }
 
-        /* About Section - Swipe Right Feature */
-        .about-content {
-            max-width: 1000px;
-            margin: 0 auto;
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 36px;
+            margin-top: 40px;
         }
 
-        .about-swipe-container {
+        .project-card {
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.5s var(--transition-smooth);
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 0.7s var(--transition-smooth) forwards;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 80px var(--glass-shadow);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 260px;
             position: relative;
             overflow: hidden;
-            border-radius: 40px;
-            padding: 60px;
-            min-height: 500px;
+            background: var(--bg-secondary);
         }
 
-        .about-slides {
+        /* IMPORTANT: Disable placeholder when image exists */
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-content {
+            padding: 36px;
+        }
+
+        .project-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
             display: flex;
-            transition: transform 0.6s var(--transition-smooth);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .about-slide {
-            min-width: 100%;
-            opacity: 0;
-            animation: fadeInUp 0.8s var(--transition-smooth) forwards;
-        }
-
-        .about-slide h3 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 24px;
+        .tech-tag {
+            padding: 8px 16px;
+            background: rgba(128, 128, 128, 0.1);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
             letter-spacing: -0.02em;
         }
 
-        .about-slide p {
-            color: var(--text-secondary);
-            line-height: 1.9;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .about-slide ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .about-slide ul li {
-            color: var(--text-secondary);
-            line-height: 1.9;
-            margin-bottom: 12px;
-            padding-left: 24px;
-            position: relative;
-        }
-
-        .about-slide ul li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-        }
-
-        .swipe-controls {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 32px;
-        }
-
-        .swipe-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--glass-border);
-            cursor: pointer;
-            transition: all 0.3s var(--transition-smooth);
-        }
-
-        .swipe-dot.active {
-            background: var(--accent);
-            width: 32px;
-            border-radius: 6px;
-        }
-
-        /* Skills Grid */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -610,90 +579,6 @@
             line-height: 1.7;
         }
 
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 36px;
-            margin-top: 40px;
-        }
-
-        .project-card {
-            border-radius: 32px;
-            overflow: hidden;
-            transition: all 0.5s var(--transition-smooth);
-            cursor: pointer;
-            opacity: 0;
-            animation: fadeInUp 0.7s var(--transition-smooth) forwards;
-        }
-
-        .project-card:nth-child(1) { animation-delay: 0.1s; }
-        .project-card:nth-child(2) { animation-delay: 0.2s; }
-        .project-card:nth-child(3) { animation-delay: 0.3s; }
-        .project-card:nth-child(4) { animation-delay: 0.4s; }
-        .project-card:nth-child(5) { animation-delay: 0.5s; }
-        .project-card:nth-child(6) { animation-delay: 0.6s; }
-
-        .project-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 80px var(--glass-shadow);
-        }
-
-        .project-image {
-            width: 100%;
-            height: 260px;
-            position: relative;
-            overflow: hidden;
-            background: var(--bg-secondary);
-        }
-
-        .project-image::before {
-            content: '#PROJECT_IMAGE';
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .project-content {
-            padding: 36px;
-        }
-
-        .project-card h3 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 14px;
-            letter-spacing: -0.01em;
-        }
-
-        .project-description {
-            color: var(--text-secondary);
-            font-size: 15px;
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tech-tag {
-            padding: 8px 16px;
-            background: rgba(128, 128, 128, 0.1);
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            font-family: 'JetBrains Mono', monospace;
-            letter-spacing: -0.02em;
-        }
-
-        /* Links Categories */
         .links-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -753,7 +638,6 @@
             font-weight: 500;
         }
 
-        /* Contact Section */
         .contact-card {
             max-width: 700px;
             margin: 0 auto;
@@ -795,7 +679,6 @@
             box-shadow: 0 16px 48px var(--glass-shadow);
         }
 
-        /* Footer */
         footer {
             position: relative;
             padding: 60px 20px 32px;
@@ -872,7 +755,6 @@
             font-size: 14px;
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -906,7 +788,6 @@
             }
         }
 
-        /* Scroll Reveal */
         .scroll-reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -918,7 +799,6 @@
             transform: translateY(0);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             nav {
                 top: 10px;
@@ -964,10 +844,6 @@
                 padding: 80px 20px;
             }
 
-            .about-swipe-container {
-                padding: 40px 28px;
-            }
-
             .projects-grid {
                 grid-template-columns: 1fr;
             }
@@ -984,7 +860,6 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav class="glass-strong" id="navbar">
         <div class="nav-content">
             <div class="nav-left">
@@ -1009,15 +884,12 @@
         </div>
     </nav>
 
-    <!-- Menu Overlay -->
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- Side Menu -->
     <div class="side-menu glass-strong" id="sideMenu">
         <div class="menu-section">
             <h3>Navigation</h3>
             <a href="#home" class="menu-link">Home</a>
-            <a href="#about" class="menu-link">About</a>
             <a href="#skills" class="menu-link">Skills</a>
             <a href="#projects" class="menu-link">Projects</a>
             <a href="#links" class="menu-link">Links</a>
@@ -1038,42 +910,24 @@
                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                     </svg>
                 </a>
-                <a href="https://instagram.com/alhamrizvii" class="social-icon" title="Instagram" target="_blank">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                </a>
                 <a href="https://github.com/alhamrizvi-cloud" class="social-icon" title="GitHub" target="_blank">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                </a>
-                <a href="https://www.youtube.com/@Alhamrizvii" class="social-icon" title="YouTube" target="_blank">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                </a>
-                <a href="https://discord.com/users/alhamrizvi" class="social-icon" title="Discord" target="_blank">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                     </svg>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
             <div class="profile-container">
                 <div class="profile-image">
+                    <!-- ADD YOUR PROFILE IMAGE HERE -->
                     <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/profile.jpg" alt="Alham Rizvi" onerror="this.style.display='none'">
                 </div>
             </div>
 
-            <!-- Social Links Below Profile -->
             <div class="social-links-hero">
                 <a href="https://www.linkedin.com/in/alham-rizvi/" class="social-icon-hero glass" title="LinkedIn" target="_blank">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -1120,103 +974,12 @@
             </div>
         </div>
 
-        <div class="swipe-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+        <div class="swipe-indicator" onclick="document.getElementById('skills').scrollIntoView({behavior: 'smooth'})">
             <span>↓</span>
             <span>Swipe to know more</span>
         </div>
     </section>
 
-    <!-- About Section with Swipe -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title scroll-reveal">About Me</h2>
-            <p class="section-subtitle scroll-reveal">Swipe right to explore more →</p>
-            
-            <div class="about-content">
-                <div class="about-swipe-container glass-strong" id="aboutContainer">
-                    <div class="about-slides" id="aboutSlides">
-                        <!-- Slide 1: Overview -->
-                        <div class="about-slide">
-                            <h3>Overview</h3>
-                            <p>
-                                Alham Rizvi is an Offensive Cybersecurity Analyst and Security Researcher based in Mumbai, Maharashtra, India. 
-                                He is widely recognized in the cybersecurity community for his technical write-ups and contributions to security platforms.
-                            </p>
-                            <p>
-                                With expertise in web exploitation, API security, and AI environments, Alham has documented extensive work on 
-                                identifying vulnerabilities like IDOR (Insecure Direct Object Reference) and prompt injection.
-                            </p>
-                        </div>
-
-                        <!-- Slide 2: Professional Expertise -->
-                        <div class="about-slide">
-                            <h3>Professional Expertise</h3>
-                            <ul>
-                                <li><strong>Roles:</strong> Offensive Security Researcher, Vulnerability Assessment and Penetration Tester (VAPT), Red Team Operator</li>
-                                <li><strong>Focus Areas:</strong> Web exploitation, API security, AI environments, vulnerability research</li>
-                                <li><strong>Affiliations:</strong> HackerOne Security Researcher, Deloitte Cybersecurity Analyst Simulation</li>
-                                <li><strong>Rankings:</strong> Top 2,000 players globally on TryHackMe with 300+ rooms completed</li>
-                            </ul>
-                        </div>
-
-                        <!-- Slide 3: Skills & Tools -->
-                        <div class="about-slide">
-                            <h3>Technical Toolkit</h3>
-                            <p>
-                                Skilled in using industry-standard tools and technologies:
-                            </p>
-                            <ul>
-                                <li>Nmap, Burp Suite, Metasploit, Wireshark</li>
-                                <li>OSINT (Open Source Intelligence) tools</li>
-                                <li>Custom security automation scripts</li>
-                                <li>Cloud security assessment tools</li>
-                                <li>AI/ML security testing frameworks</li>
-                            </ul>
-                        </div>
-
-                        <!-- Slide 4: Certifications & Achievements -->
-                        <div class="about-slide">
-                            <h3>Certifications & Achievements</h3>
-                            <ul>
-                                <li><strong>CRTA</strong> (Certified Red Team Analyst) from CyberWarfare Labs</li>
-                                <li><strong>Google Cybersecurity Professional Certificate</strong></li>
-                                <li><strong>Ethical Hacking Certification</strong> from Cisco Networking Academy (Netacad)</li>
-                                <li><strong>Junior Penetration Tester</strong> certification from Cisco Netacad</li>
-                                <li>Active contributor to bug bounty platforms and CTF competitions</li>
-                            </ul>
-                        </div>
-
-                        <!-- Slide 5: Community & Content -->
-                        <div class="about-slide">
-                            <h3>Community Presence</h3>
-                            <p>
-                                Alham is highly active in the cybersecurity community, sharing knowledge and contributing to the field through various platforms:
-                            </p>
-                            <ul>
-                                <li>Publishes CTF walkthroughs and bug bounty tips on Medium (ExoidSec) and WordPress</li>
-                                <li>Maintains active GitHub repository with security tools and projects</li>
-                                <li>Engages with the community on LinkedIn, YouTube, and Discord</li>
-                                <li>Contributes to open-source security projects</li>
-                            </ul>
-                            <p style="margin-top: 20px; font-style: italic; font-size: 14px;">
-                                Content provided by Gemini AI
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="swipe-controls">
-                        <div class="swipe-dot active" data-slide="0"></div>
-                        <div class="swipe-dot" data-slide="1"></div>
-                        <div class="swipe-dot" data-slide="2"></div>
-                        <div class="swipe-dot" data-slide="3"></div>
-                        <div class="swipe-dot" data-slide="4"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
     <section id="skills">
         <div class="container">
             <h2 class="section-title scroll-reveal">Core Skills</h2>
@@ -1250,15 +1013,17 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
     <section id="projects">
         <div class="container">
             <h2 class="section-title scroll-reveal">Featured Projects</h2>
             <p class="section-subtitle scroll-reveal">Open-source security tools and research</p>
             
             <div class="projects-grid">
-               
-                    <div class="project-image <div class="project-card glass-strong">"></div>
+                <!-- ParameterX -->
+                <a href="https://github.com/alhamrizvi-cloud/ParameterX" target="_blank" class="project-card glass-strong">
+                    <div class="project-image">
+                        <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/paramX.png" alt="ParameterX">
+                    </div>
                     <div class="project-content">
                         <h3>ParameterX</h3>
                         <p class="project-description">
@@ -1269,11 +1034,12 @@
                             <span class="tech-tag">Security</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card glass-strong">
+                <!-- XSSion -->
+                <a href="https://github.com/alhamrizvi-cloud/XSSion" target="_blank" class="project-card glass-strong">
                     <div class="project-image">
-                    <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/XSSIon.png" alt="XSSion">
+                        <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/XSSIon.png" alt="XSSion">
                     </div>
                     <div class="project-content">
                         <h3>XSSion</h3>
@@ -1285,10 +1051,13 @@
                             <span class="tech-tag">XSS</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card glass-strong">
-                    <div class="project-image"></div>
+                <!-- Bug Bounty Roadmap -->
+                <a href="https://github.com/alhamrizvi-cloud/Bug-Bounty-Roadmap" target="_blank" class="project-card glass-strong">
+                    <div class="project-image">
+                        <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/bugbounty.png" alt="Bug Bounty Roadmap">
+                    </div>
                     <div class="project-content">
                         <h3>Bug Bounty Roadmap</h3>
                         <p class="project-description">
@@ -1299,10 +1068,13 @@
                             <span class="tech-tag">Resources</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card glass-strong">
-                    <div class="project-image"></div>
+                <!-- urlx -->
+                <a href="https://github.com/alhamrizvi-cloud/urlx" target="_blank" class="project-card glass-strong">
+                    <div class="project-image">
+                        <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/urlx.png" alt="urlx">
+                    </div>
                     <div class="project-content">
                         <h3>urlx</h3>
                         <p class="project-description">
@@ -1313,10 +1085,13 @@
                             <span class="tech-tag">Recon</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card glass-strong">
-                    <div class="project-image"></div>
+                <!-- tr01d -->
+                <a href="https://github.com/alhamrizvi-cloud/tr01d" target="_blank" class="project-card glass-strong">
+                    <div class="project-image">
+                        <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/tr01d.png" alt="tr01d">
+                    </div>
                     <div class="project-content">
                         <h3>tr01d</h3>
                         <p class="project-description">
@@ -1327,10 +1102,13 @@
                             <span class="tech-tag">OSINT</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
-                <div class="project-card glass-strong">
-                    <div class="project-image"></div>
+                <!-- rapzy -->
+                <a href="https://github.com/alhamrizvi-cloud/rapzy" target="_blank" class="project-card glass-strong">
+                    <div class="project-image">
+                        <img src="https://raw.githubusercontent.com/alhamrizvi-cloud/alhamrizvi-cloud.github.io/main/images/rapzy.png" alt="rapzy">
+                    </div>
                     <div class="project-content">
                         <h3>rapzy</h3>
                         <p class="project-description">
@@ -1341,19 +1119,17 @@
                             <span class="tech-tag">Enumeration</span>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Links Section -->
     <section id="links">
         <div class="container">
             <h2 class="section-title scroll-reveal">Links & Profiles</h2>
             <p class="section-subtitle scroll-reveal">Connect and explore my work across platforms</p>
             
             <div class="links-grid">
-                <!-- Blogs & Writeups -->
                 <div class="link-category glass-strong">
                     <h3>📝 Blogs & Writeups</h3>
                     <div class="link-list">
@@ -1372,7 +1148,6 @@
                     </div>
                 </div>
 
-                <!-- CTF Platforms -->
                 <div class="link-category glass-strong">
                     <h3>🚩 CTF Platforms</h3>
                     <div class="link-list">
@@ -1394,7 +1169,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <div class="container">
             <div class="contact-card glass-strong scroll-reveal">
@@ -1408,7 +1182,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -1437,16 +1210,6 @@
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
                     </a>
-                    <a href="https://www.youtube.com/@Alhamrizvii" class="social-icon" title="YouTube" target="_blank">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                        </svg>
-                    </a>
-                    <a href="https://discord.com/users/alhamrizvi" class="social-icon" title="Discord" target="_blank">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                        </svg>
-                    </a>
                 </div>
             </div>
 
@@ -1454,10 +1217,8 @@
                 <h4>Navigation</h4>
                 <div class="footer-links">
                     <a href="#home" class="footer-link">Home</a>
-                    <a href="#about" class="footer-link">About</a>
                     <a href="#skills" class="footer-link">Skills</a>
                     <a href="#projects" class="footer-link">Projects</a>
-                    <a href="#links" class="footer-link">Links</a>
                     <a href="#contact" class="footer-link">Contact</a>
                 </div>
             </div>
@@ -1477,12 +1238,10 @@
     </footer>
 
     <script>
-        // Theme Toggle with System Default
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.querySelector('.theme-icon');
         const html = document.documentElement;
 
-        // Check for saved theme or use system preference
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         
@@ -1503,7 +1262,6 @@
             themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
         });
 
-        // Menu toggle
         const menuToggle = document.getElementById('menuToggle');
         const sideMenu = document.getElementById('sideMenu');
         const menuOverlay = document.getElementById('menuOverlay');
@@ -1526,7 +1284,6 @@
             });
         });
 
-        // Navbar scroll effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1536,7 +1293,6 @@
             }
         });
 
-        // Scroll reveal
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -1552,86 +1308,6 @@
 
         document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-        // About Section Swipe
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.about-slide');
-        const dots = document.querySelectorAll('.swipe-dot');
-        const slidesContainer = document.getElementById('aboutSlides');
-
-        function goToSlide(index) {
-            currentSlide = index;
-            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
-        }
-
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => goToSlide(index));
-        });
-
-        // Touch/swipe support
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        const aboutContainer = document.getElementById('aboutContainer');
-        aboutContainer.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        aboutContainer.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50 && currentSlide < slides.length - 1) {
-                goToSlide(currentSlide + 1);
-            }
-            if (touchEndX > touchStartX + 50 && currentSlide > 0) {
-                goToSlide(currentSlide - 1);
-            }
-        }
-
-        // Mouse drag support
-        let isDragging = false;
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-
-        aboutContainer.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startPos = e.pageX;
-            aboutContainer.style.cursor = 'grabbing';
-        });
-
-        aboutContainer.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const currentPosition = e.pageX;
-            currentTranslate = prevTranslate + currentPosition - startPos;
-        });
-
-        aboutContainer.addEventListener('mouseup', (e) => {
-            isDragging = false;
-            const movedBy = e.pageX - startPos;
-            aboutContainer.style.cursor = 'grab';
-
-            if (movedBy < -50 && currentSlide < slides.length - 1) {
-                goToSlide(currentSlide + 1);
-            }
-            if (movedBy > 50 && currentSlide > 0) {
-                goToSlide(currentSlide - 1);
-            }
-
-            prevTranslate = currentTranslate;
-        });
-
-        aboutContainer.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
-        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
@@ -1647,15 +1323,6 @@
                 }
             });
         });
-
-        // Search functionality
-        const searchBar = document.querySelector('.search-bar');
-        if (searchBar) {
-            searchBar.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                console.log('Searching for:', searchTerm);
-            });
-        }
     </script>
 </body>
 </html>
