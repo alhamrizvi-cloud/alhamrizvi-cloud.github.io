@@ -1,0 +1,225 @@
+/* Page-specific styles */
+
+.page-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.content-card {
+    padding: 50px;
+    border-radius: 32px;
+    margin-bottom: 40px;
+    transition: all 0.4s var(--transition-smooth);
+}
+
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px var(--glass-shadow);
+}
+
+.content-card h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+.content-card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+.content-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.content-card li {
+    margin-bottom: 24px;
+}
+
+.resource-list li {
+    padding: 24px;
+    background: rgba(128, 128, 128, 0.05);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.resource-list li:hover {
+    background: rgba(128, 128, 128, 0.1);
+    transform: translateX(8px);
+}
+
+.resource-list h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.resource-list p {
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.resource-link:hover {
+    transform: translateX(4px);
+}
+
+/* Contact Form */
+.contact-form {
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    background: rgba(128, 128, 128, 0.05);
+    color: var(--text-primary);
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(128, 128, 128, 0.08);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* License Page */
+.license-section {
+    margin-bottom: 40px;
+}
+
+.license-section h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.license-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.license-section li {
+    padding: 8px 0 8px 24px;
+    position: relative;
+    color: var(--text-secondary);
+}
+
+.license-section li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Privacy Policy */
+.privacy-section {
+    margin-bottom: 32px;
+}
+
+.privacy-section h3 {
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.privacy-section p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.privacy-section ul {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-left: 24px;
+    margin-bottom: 16px;
+}
+
+/* Contact Methods */
+.contact-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+    margin: 40px 0;
+}
+
+.contact-method {
+    padding: 32px;
+    border-radius: 24px;
+    text-align: center;
+    transition: all 0.3s var(--transition-smooth);
+}
+
+.contact-method:hover {
+    transform: translateY(-8px);
+}
+
+.contact-method-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+.contact-method h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.contact-method p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.contact-method a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content-card {
+        padding: 32px 24px;
+    }
+
+    .contact-methods {
+        grid-template-columns: 1fr;
+    }
+}

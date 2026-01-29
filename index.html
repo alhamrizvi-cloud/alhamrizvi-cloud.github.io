@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alham Rizvi - Offensive Security Researcher & Penetration Tester">
+    <title>Alham Rizvi - Offensive Security Researcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #000000;
+            --text-secondary: #4a4a4a;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.05);
+            --accent: #000000;
+            --transition-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8a8;
+            --glass-bg: rgba(0, 0, 0, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(255, 255, 255, 0.05);
+            --accent: #ffffff;
+        }
+
+        body {
+            font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background 0.5s var(--transition-smooth), color 0.5s var(--transition-smooth);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(128, 128, 128, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(128, 128, 128, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: bgPulse 15s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Enhanced Glass Effect */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: 
+                0 8px 32px 0 var(--glass-shadow),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-strong {
+            background: var(--glass-bg);
+            backdrop-filter: blur(60px) saturate(200%);
+            -webkit-backdrop-filter: blur(60px) saturate(200%);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 
+                0 12px 48px 0 var(--glass-shadow),
+                inset 0 1px 2px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 12px 20px;
+            border-radius: 50px;
+            width: calc(100% - 40px);
+            max-width: 700px;
+            animation: slideDown 0.8s var(--transition-smooth);
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        nav.scrolled {
+            top: 10px;
+            padding: 10px 18px;
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            background: rgba(128, 128, 128, 0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s var(--transition-smooth);
+            position: relative;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(128, 128, 128, 0.2);
+            transform: scale(1.05);
+        }
+
+        .theme-icon {
+            font-size: 20px;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        /* Search Bar */
+        .search-container {
+            flex: 1;
+            position: relative;
+            max-width: 400px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: none;
+            background: rgba(128, 128, 128, 0.08);
+            border-radius: 30px;
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            outline: none;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-bar:focus {
+            background: rgba(128, 128, 128, 0.12);
+            box-shadow: 0 4px 12px var(--glass-shadow);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+        }
+
+        /* Hamburger Menu */
+        .menu-toggle {
+            width: 44px;
+            height: 44px;
+            background: rgba(128, 128, 128, 0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.3s var(--transition-smooth);
+            padding: 0;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(128, 128, 128, 0.2);
+            transform: scale(1.05);
+        }
+
+        .menu-toggle span {
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            right: -100%;
+            top: 0;
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            backdrop-filter: blur(60px) saturate(200%);
+            -webkit-backdrop-filter: blur(60px) saturate(200%);
+            background: var(--glass-bg);
+            border-left: 1px solid var(--glass-border);
+            z-index: 999;
+            padding: 100px 40px 40px;
+            transition: right 0.5s var(--transition-smooth);
+            overflow-y: auto;
+            box-shadow: -10px 0 50px var(--glass-shadow);
+        }
+
+        .side-menu.active {
+            right: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .menu-section {
+            margin-bottom: 40px;
+        }
+
+        .menu-section h3 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .menu-link {
+            display: block;
+            padding: 14px 0;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s var(--transition-smooth);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .menu-link:hover {
+            padding-left: 10px;
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 140px 20px 80px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            animation: fadeInUp 1s var(--transition-smooth);
+        }
+
+        .profile-container {
+            margin-bottom: 32px;
+            animation: scaleIn 0.8s var(--transition-spring) 0.2s backwards;
+        }
+
+        .profile-image {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            border: 4px solid var(--glass-border);
+            box-shadow: 0 20px 60px var(--glass-shadow);
+            transition: all 0.5s var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s var(--transition-smooth);
+        }
+
+        .profile-image::after {
+            content: '#IMAGE_HERE';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 25px 80px var(--glass-shadow);
+        }
+
+        .profile-image:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Social Links Below Profile */
+        .social-links-hero {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            animation: fadeInUp 1s var(--transition-smooth) 0.4s backwards;
+            flex-wrap: wrap;
+        }
+
+        .social-icon-hero {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.4s var(--transition-smooth);
+            font-size: 22px;
+            box-shadow: 0 4px 20px var(--glass-shadow);
+        }
+
+        .social-icon-hero:hover {
+            transform: translateY(-8px) scale(1.15);
+            box-shadow: 0 12px 40px var(--glass-shadow);
+        }
+
+        .hero-glass-card {
+            padding: 60px 50px;
+            border-radius: 40px;
+            animation: fadeInUp 1s var(--transition-smooth) 0.5s backwards;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .role {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .tagline {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* Swipe to Know More */
+        .swipe-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .swipe-indicator:hover {
+            opacity: 1;
+        }
+
+        .swipe-indicator span {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -10px); }
+        }
+
+        /* Section Base */
+        section {
+            padding: 120px 20px;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 70px;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* About Section - Swipe Right Feature */
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-swipe-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 40px;
+            padding: 60px;
+            min-height: 500px;
+        }
+
+        .about-slides {
+            display: flex;
+            transition: transform 0.6s var(--transition-smooth);
+        }
+
+        .about-slide {
+            min-width: 100%;
+            opacity: 0;
+            animation: fadeInUp 0.8s var(--transition-smooth) forwards;
+        }
+
+        .about-slide h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .about-slide p {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .about-slide ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-slide ul li {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .about-slide ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .swipe-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .swipe-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+        }
+
+        .swipe-dot.active {
+            background: var(--accent);
+            width: 32px;
+            border-radius: 6px;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            padding: 40px 32px;
+            border-radius: 32px;
+            text-align: center;
+            transition: all 0.4s var(--transition-smooth);
+            opacity: 0;
+            animation: fadeInUp 0.7s var(--transition-smooth) forwards;
+        }
+
+        .skill-card:nth-child(1) { animation-delay: 0.1s; }
+        .skill-card:nth-child(2) { animation-delay: 0.2s; }
+        .skill-card:nth-child(3) { animation-delay: 0.3s; }
+        .skill-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .skill-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 70px var(--glass-shadow);
+        }
+
+        .skill-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .skill-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
+        .skill-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 36px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.5s var(--transition-smooth);
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 0.7s var(--transition-smooth) forwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0.1s; }
+        .project-card:nth-child(2) { animation-delay: 0.2s; }
+        .project-card:nth-child(3) { animation-delay: 0.3s; }
+        .project-card:nth-child(4) { animation-delay: 0.4s; }
+        .project-card:nth-child(5) { animation-delay: 0.5s; }
+        .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 80px var(--glass-shadow);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 260px;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .project-image::before {
+            content: '#PROJECT_IMAGE';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .project-content {
+            padding: 36px;
+        }
+
+        .project-card h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            letter-spacing: -0.01em;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tech-tag {
+            padding: 8px 16px;
+            background: rgba(128, 128, 128, 0.1);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -0.02em;
+        }
+
+        /* Links Categories */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .link-category {
+            padding: 40px;
+            border-radius: 32px;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .link-category:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 70px var(--glass-shadow);
+        }
+
+        .link-category h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(128, 128, 128, 0.08);
+            border-radius: 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s var(--transition-smooth);
+            border: 1px solid var(--glass-border);
+        }
+
+        .link-item:hover {
+            background: rgba(128, 128, 128, 0.15);
+            transform: translateX(6px);
+        }
+
+        .link-icon {
+            font-size: 18px;
+        }
+
+        .link-text {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-card {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 70px 60px;
+            border-radius: 40px;
+            text-align: center;
+        }
+
+        .contact-card h3 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 36px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 18px 42px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s var(--transition-smooth);
+            font-size: 16px;
+            letter-spacing: -0.01em;
+            box-shadow: 0 8px 24px var(--glass-shadow);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 16px 48px var(--glass-shadow);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            padding: 60px 20px 32px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-section h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            transition: all 0.3s var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+            transform: translateX(6px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(128, 128, 128, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s var(--transition-smooth);
+            font-size: 18px;
+        }
+
+        .social-icon:hover {
+            background: rgba(128, 128, 128, 0.2);
+            transform: translateY(-6px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -30px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.7);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Scroll Reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s var(--transition-smooth);
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                top: 10px;
+                padding: 10px 16px;
+            }
+
+            .search-bar {
+                font-size: 13px;
+                padding: 8px 12px 8px 36px;
+            }
+
+            .menu-toggle,
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+            }
+
+            .side-menu {
+                padding: 80px 24px 24px;
+                max-width: 100%;
+            }
+
+            .hero {
+                padding: 100px 20px 60px;
+            }
+
+            .hero-glass-card {
+                padding: 40px 32px;
+            }
+
+            .profile-image {
+                width: 180px;
+                height: 180px;
+            }
+
+            .social-icon-hero {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+
+            section {
+                padding: 80px 20px;
+            }
+
+            .about-swipe-container {
+                padding: 40px 28px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card {
+                padding: 48px 32px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-strong" id="navbar">
+        <div class="nav-content">
+            <div class="nav-left">
+                <div class="search-container">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" class="search-bar" placeholder="Search...">
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">☀️</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu glass-strong" id="sideMenu">
+        <div class="menu-section">
+            <h3>Navigation</h3>
+            <a href="#home" class="menu-link">Home</a>
+            <a href="#about" class="menu-link">About</a>
+            <a href="#skills" class="menu-link">Skills</a>
+            <a href="#projects" class="menu-link">Projects</a>
+            <a href="#links" class="menu-link">Links</a>
+            <a href="#contact" class="menu-link">Contact</a>
+        </div>
+
+        <div class="menu-section">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/alham-rizvi/" class="social-icon" title="LinkedIn" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="mailto:its47h4m@gmail.com" class="social-icon" title="Email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                </a>
+                <a href="https://instagram.com/alhamrizvii" class="social-icon" title="Instagram" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="https://github.com/alhamrizvi-cloud" class="social-icon" title="GitHub" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@Alhamrizvii" class="social-icon" title="YouTube" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </a>
+                <a href="https://discord.com/users/alhamrizvi" class="social-icon" title="Discord" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="profile-container">
+                <div class="profile-image">
+                    <img src="images/profile.jpg" alt="Alham Rizvi" onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <!-- Social Links Below Profile -->
+            <div class="social-links-hero">
+                <a href="https://www.linkedin.com/in/alham-rizvi/" class="social-icon-hero glass" title="LinkedIn" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="mailto:its47h4m@gmail.com" class="social-icon-hero glass" title="Email">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                </a>
+                <a href="https://instagram.com/alhamrizvii" class="social-icon-hero glass" title="Instagram" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="https://github.com/alhamrizvi-cloud" class="social-icon-hero glass" title="GitHub" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://www.youtube.com/@Alhamrizvii" class="social-icon-hero glass" title="YouTube" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                </a>
+                <a href="https://discord.com/users/alhamrizvi" class="social-icon-hero glass" title="Discord" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="hero-glass-card glass-strong">
+                <h1>Alham Rizvi</h1>
+                <p class="role">Offensive Security Researcher & Penetration Tester</p>
+                <p class="tagline">
+                    Specializing in Web, API, Network & Cloud Security, and AI environments. 
+                    Passionate about identifying vulnerabilities and securing digital infrastructures through ethical hacking and red team operations.
+                </p>
+            </div>
+        </div>
+
+        <div class="swipe-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+            <span>↓</span>
+            <span>Swipe to know more</span>
+        </div>
+    </section>
+
+    <!-- About Section with Swipe -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">About Me</h2>
+            <p class="section-subtitle scroll-reveal">Swipe right to explore more →</p>
+            
+            <div class="about-content">
+                <div class="about-swipe-container glass-strong" id="aboutContainer">
+                    <div class="about-slides" id="aboutSlides">
+                        <!-- Slide 1: Overview -->
+                        <div class="about-slide">
+                            <h3>Overview</h3>
+                            <p>
+                                Alham Rizvi is an Offensive Cybersecurity Analyst and Security Researcher based in Mumbai, Maharashtra, India. 
+                                He is widely recognized in the cybersecurity community for his technical write-ups and contributions to security platforms.
+                            </p>
+                            <p>
+                                With expertise in web exploitation, API security, and AI environments, Alham has documented extensive work on 
+                                identifying vulnerabilities like IDOR (Insecure Direct Object Reference) and prompt injection.
+                            </p>
+                        </div>
+
+                        <!-- Slide 2: Professional Expertise -->
+                        <div class="about-slide">
+                            <h3>Professional Expertise</h3>
+                            <ul>
+                                <li><strong>Roles:</strong> Offensive Security Researcher, Vulnerability Assessment and Penetration Tester (VAPT), Red Team Operator</li>
+                                <li><strong>Focus Areas:</strong> Web exploitation, API security, AI environments, vulnerability research</li>
+                                <li><strong>Affiliations:</strong> HackerOne Security Researcher, Deloitte Cybersecurity Analyst Simulation</li>
+                                <li><strong>Rankings:</strong> Top 2,000 players globally on TryHackMe with 300+ rooms completed</li>
+                            </ul>
+                        </div>
+
+                        <!-- Slide 3: Skills & Tools -->
+                        <div class="about-slide">
+                            <h3>Technical Toolkit</h3>
+                            <p>
+                                Skilled in using industry-standard tools and technologies:
+                            </p>
+                            <ul>
+                                <li>Nmap, Burp Suite, Metasploit, Wireshark</li>
+                                <li>OSINT (Open Source Intelligence) tools</li>
+                                <li>Custom security automation scripts</li>
+                                <li>Cloud security assessment tools</li>
+                                <li>AI/ML security testing frameworks</li>
+                            </ul>
+                        </div>
+
+                        <!-- Slide 4: Certifications & Achievements -->
+                        <div class="about-slide">
+                            <h3>Certifications & Achievements</h3>
+                            <ul>
+                                <li><strong>CRTA</strong> (Certified Red Team Analyst) from CyberWarfare Labs</li>
+                                <li><strong>Google Cybersecurity Professional Certificate</strong></li>
+                                <li><strong>Ethical Hacking Certification</strong> from Cisco Networking Academy (Netacad)</li>
+                                <li><strong>Junior Penetration Tester</strong> certification from Cisco Netacad</li>
+                                <li>Active contributor to bug bounty platforms and CTF competitions</li>
+                            </ul>
+                        </div>
+
+                        <!-- Slide 5: Community & Content -->
+                        <div class="about-slide">
+                            <h3>Community Presence</h3>
+                            <p>
+                                Alham is highly active in the cybersecurity community, sharing knowledge and contributing to the field through various platforms:
+                            </p>
+                            <ul>
+                                <li>Publishes CTF walkthroughs and bug bounty tips on Medium (ExoidSec) and WordPress</li>
+                                <li>Maintains active GitHub repository with security tools and projects</li>
+                                <li>Engages with the community on LinkedIn, YouTube, and Discord</li>
+                                <li>Contributes to open-source security projects</li>
+                            </ul>
+                            <p style="margin-top: 20px; font-style: italic; font-size: 14px;">
+                                Content provided by Gemini AI
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="swipe-controls">
+                        <div class="swipe-dot active" data-slide="0"></div>
+                        <div class="swipe-dot" data-slide="1"></div>
+                        <div class="swipe-dot" data-slide="2"></div>
+                        <div class="swipe-dot" data-slide="3"></div>
+                        <div class="swipe-dot" data-slide="4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">Core Skills</h2>
+            <p class="section-subtitle scroll-reveal">Expertise across multiple security domains</p>
+            
+            <div class="skills-grid">
+                <div class="skill-card glass-strong">
+                    <div class="skill-icon">🎯</div>
+                    <h3>Bug Bounty Hunter</h3>
+                    <p>Discovering and responsibly disclosing vulnerabilities across web applications and APIs on major platforms.</p>
+                </div>
+
+                <div class="skill-card glass-strong">
+                    <div class="skill-icon">🔐</div>
+                    <h3>Penetration Tester</h3>
+                    <p>Conducting comprehensive security assessments and penetration tests to identify and exploit vulnerabilities.</p>
+                </div>
+
+                <div class="skill-card glass-strong">
+                    <div class="skill-icon">🌐</div>
+                    <h3>Web & API Security</h3>
+                    <p>Specialized in web application security testing, API exploitation, and secure development practices.</p>
+                </div>
+
+                <div class="skill-card glass-strong">
+                    <div class="skill-icon">☁️</div>
+                    <h3>Network & Cloud Security</h3>
+                    <p>Expertise in network penetration testing, cloud security assessments, and infrastructure hardening.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">Featured Projects</h2>
+            <p class="section-subtitle scroll-reveal">Open-source security tools and research</p>
+            
+            <div class="projects-grid">
+                <div class="project-card glass-strong">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3>ParameterX</h3>
+                        <p class="project-description">
+                            Advanced parameter discovery and testing tool for security researchers and penetration testers.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Shell</span>
+                            <span class="tech-tag">Security</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card glass-strong">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3>XSSion</h3>
+                        <p class="project-description">
+                            Fastest Reflected XSS Finder v1 - Automated tool for detecting cross-site scripting vulnerabilities.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">XSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card glass-strong">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3>Bug Bounty Roadmap</h3>
+                        <p class="project-description">
+                            Comprehensive roadmap and guide for aspiring bug bounty hunters in 2026.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Guide</span>
+                            <span class="tech-tag">Resources</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card glass-strong">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3>urlx</h3>
+                        <p class="project-description">
+                            Multi-source URL discovery & live host probing for bug bounty and red team reconnaissance.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Go</span>
+                            <span class="tech-tag">Recon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card glass-strong">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3>tr01d</h3>
+                        <p class="project-description">
+                            Command-line tool for identifying and extracting sensitive information like API keys and tokens.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">OSINT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card glass-strong">
+                    <div class="project-image"></div>
+                    <div class="project-content">
+                        <h3>rapzy</h3>
+                        <p class="project-description">
+                            Ultimate Web UI Subdomain Enumeration site with comprehensive scanning capabilities.
+                        </p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Web</span>
+                            <span class="tech-tag">Enumeration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">Links & Profiles</h2>
+            <p class="section-subtitle scroll-reveal">Connect and explore my work across platforms</p>
+            
+            <div class="links-grid">
+                <!-- Blogs & Writeups -->
+                <div class="link-category glass-strong">
+                    <h3>📝 Blogs & Writeups</h3>
+                    <div class="link-list">
+                        <a href="https://alhamrizvi.wordpress.com/" class="link-item" target="_blank">
+                            <span class="link-icon">🌐</span>
+                            <span class="link-text">WordPress Blog</span>
+                        </a>
+                        <a href="https://medium.com/@alhamr1zvi" class="link-item" target="_blank">
+                            <span class="link-icon">📖</span>
+                            <span class="link-text">Medium (@alhamr1zvi)</span>
+                        </a>
+                        <a href="https://www.reddit.com/user/BraveImplement6792/" class="link-item" target="_blank">
+                            <span class="link-icon">💬</span>
+                            <span class="link-text">Reddit Profile</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CTF Platforms -->
+                <div class="link-category glass-strong">
+                    <h3>🚩 CTF Platforms</h3>
+                    <div class="link-list">
+                        <a href="https://play.picoctf.org/users/Alhamrizvi" class="link-item" target="_blank">
+                            <span class="link-icon">🏴</span>
+                            <span class="link-text">PicoCTF</span>
+                        </a>
+                        <a href="https://tryhackme.com/p/Alhamrizvii" class="link-item" target="_blank">
+                            <span class="link-icon">🎯</span>
+                            <span class="link-text">TryHackMe</span>
+                        </a>
+                        <a href="https://app.hackthebox.com/users/2588695" class="link-item" target="_blank">
+                            <span class="link-icon">📦</span>
+                            <span class="link-text">HackTheBox</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-card glass-strong scroll-reveal">
+                <h3>Let's Collaborate</h3>
+                <p>
+                    Interested in collaborating on security research, bug bounty programs, or penetration testing engagements? 
+                    Let's connect and discuss how we can work together to improve security.
+                </p>
+                <a href="mailto:its47h4m@gmail.com" class="contact-btn">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/alham-rizvi/" class="social-icon" title="LinkedIn" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:its47h4m@gmail.com" class="social-icon" title="Email">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/alhamrizvii" class="social-icon" title="Instagram" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/alhamrizvi-cloud" class="social-icon" title="GitHub" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.youtube.com/@Alhamrizvii" class="social-icon" title="YouTube" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                    <a href="https://discord.com/users/alhamrizvi" class="social-icon" title="Discord" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <div class="footer-links">
+                    <a href="#home" class="footer-link">Home</a>
+                    <a href="#about" class="footer-link">About</a>
+                    <a href="#skills" class="footer-link">Skills</a>
+                    <a href="#projects" class="footer-link">Projects</a>
+                    <a href="#links" class="footer-link">Links</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Location</h4>
+                <div class="footer-links">
+                    <span class="footer-link" style="cursor: default;">📍 Mumbai, Maharashtra</span>
+                    <span class="footer-link" style="cursor: default;">🇮🇳 India</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Alham Rizvi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle with System Default
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.querySelector('.theme-icon');
+        const html = document.documentElement;
+
+        // Check for saved theme or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            themeIcon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+        } else if (systemPrefersDark) {
+            html.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        });
+
+        // Menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sideMenu = document.getElementById('sideMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu() {
+            menuToggle.classList.toggle('active');
+            sideMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            document.body.style.overflow = sideMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (link.getAttribute('href').startsWith('#')) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll reveal
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+        // About Section Swipe
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.about-slide');
+        const dots = document.querySelectorAll('.swipe-dot');
+        const slidesContainer = document.getElementById('aboutSlides');
+
+        function goToSlide(index) {
+            currentSlide = index;
+            slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => goToSlide(index));
+        });
+
+        // Touch/swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const aboutContainer = document.getElementById('aboutContainer');
+        aboutContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        aboutContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50 && currentSlide < slides.length - 1) {
+                goToSlide(currentSlide + 1);
+            }
+            if (touchEndX > touchStartX + 50 && currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+
+        // Mouse drag support
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+
+        aboutContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startPos = e.pageX;
+            aboutContainer.style.cursor = 'grabbing';
+        });
+
+        aboutContainer.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const currentPosition = e.pageX;
+            currentTranslate = prevTranslate + currentPosition - startPos;
+        });
+
+        aboutContainer.addEventListener('mouseup', (e) => {
+            isDragging = false;
+            const movedBy = e.pageX - startPos;
+            aboutContainer.style.cursor = 'grab';
+
+            if (movedBy < -50 && currentSlide < slides.length - 1) {
+                goToSlide(currentSlide + 1);
+            }
+            if (movedBy > 50 && currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+
+            prevTranslate = currentTranslate;
+        });
+
+        aboutContainer.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Search functionality
+        const searchBar = document.querySelector('.search-bar');
+        if (searchBar) {
+            searchBar.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                console.log('Searching for:', searchTerm);
+            });
+        }
+    </script>
+</body>
+</html>
