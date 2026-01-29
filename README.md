@@ -340,12 +340,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Contributions, issues, and feature requests are welcome!
 
-## 💖 Acknowledgments
-
-- Google Fonts for typography
-- SVG icons from various open-source projects
-- Inspired by modern glassmorphic design trends
-
 ## 📞 Support
 
 If you have any questions or need help:
