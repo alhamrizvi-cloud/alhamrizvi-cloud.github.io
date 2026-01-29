@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with Alham Rizvi - Offensive Security Researcher">
+    <title>Contact - Alham Rizvi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-strong" id="navbar">
+        <div class="nav-content">
+            <div class="nav-left">
+                <div class="search-container">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" class="search-bar" placeholder="Search...">
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <span class="theme-icon">☀️</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Side Menu -->
+    <div class="side-menu glass-strong" id="sideMenu">
+        <div class="menu-section">
+            <h3>Navigation</h3>
+            <a href="../index.html" class="menu-link">Home</a>
+            <a href="../index.html#about" class="menu-link">About</a>
+            <a href="../index.html#skills" class="menu-link">Skills</a>
+            <a href="../index.html#projects" class="menu-link">Projects</a>
+            <a href="resources.html" class="menu-link">Resources</a>
+            <a href="license.html" class="menu-link">License</a>
+            <a href="contact.html" class="menu-link">Contact</a>
+            <a href="privacy.html" class="menu-link">Privacy</a>
+        </div>
+    </div>
+
+    <!-- Contact Page Content -->
+    <section style="padding-top: 140px;">
+        <div class="container">
+            <h1 class="section-title scroll-reveal">Get In Touch</h1>
+            <p class="section-subtitle scroll-reveal">Let's collaborate on security research and projects</p>
+
+            <div class="page-content">
+                <!-- Contact Methods -->
+                <div class="contact-methods">
+                    <div class="contact-method glass-strong scroll-reveal">
+                        <div class="contact-method-icon">📧</div>
+                        <h3>Email</h3>
+                        <p>For inquiries and collaboration</p>
+                        <a href="mailto:its47h4m@gmail.com">its47h4m@gmail.com</a>
+                    </div>
+
+                    <div class="contact-method glass-strong scroll-reveal">
+                        <div class="contact-method-icon">💼</div>
+                        <h3>LinkedIn</h3>
+                        <p>Professional networking</p>
+                        <a href="https://www.linkedin.com/in/alham-rizvi/" target="_blank">Connect on LinkedIn</a>
+                    </div>
+
+                    <div class="contact-method glass-strong scroll-reveal">
+                        <div class="contact-method-icon">🐙</div>
+                        <h3>GitHub</h3>
+                        <p>View my open-source projects</p>
+                        <a href="https://github.com/alhamrizvi-cloud" target="_blank">Follow on GitHub</a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="content-card glass-strong scroll-reveal">
+                    <h2>Send a Message</h2>
+                    <p style="margin-bottom: 30px;">Fill out the form below and I'll get back to you as soon as possible.</p>
+                    
+                    <form class="contact-form" action="mailto:its47h4m@gmail.com" method="GET" enctype="text/plain">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required placeholder="John Doe">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Your Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="john@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="Bug Bounty Collaboration">Bug Bounty Collaboration</option>
+                                <option value="Security Research">Security Research</option>
+                                <option value="Job Opportunity">Job Opportunity</option>
+                                <option value="Consulting">Security Consulting</option>
+                                <option value="Project Collaboration">Project Collaboration</option>
+                                <option value="Speaking Engagement">Speaking Engagement</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="body" required placeholder="Tell me about your project or inquiry..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+
+                    <p style="margin-top: 24px; font-size: 14px; color: var(--text-secondary); text-align: center;">
+                        * Required fields
+                    </p>
+                </div>
+
+                <!-- Alternative Contact Methods -->
+                <div class="content-card glass-strong scroll-reveal">
+                    <h2>Other Ways to Connect</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 24px;">
+                        <a href="https://instagram.com/alhamrizvii" target="_blank" class="resource-link" style="padding: 16px; background: rgba(128, 128, 128, 0.05); border-radius: 12px; text-align: center; display: block;">
+                            📸 Instagram<br>
+                            <span style="font-size: 12px; color: var(--text-secondary);">@alhamrizvii</span>
+                        </a>
+                        
+                        <a href="https://www.youtube.com/@Alhamrizvii" target="_blank" class="resource-link" style="padding: 16px; background: rgba(128, 128, 128, 0.05); border-radius: 12px; text-align: center; display: block;">
+                            📺 YouTube<br>
+                            <span style="font-size: 12px; color: var(--text-secondary);">@Alhamrizvii</span>
+                        </a>
+                        
+                        <a href="https://discord.com/users/alhamrizvi" target="_blank" class="resource-link" style="padding: 16px; background: rgba(128, 128, 128, 0.05); border-radius: 12px; text-align: center; display: block;">
+                            💬 Discord<br>
+                            <span style="font-size: 12px; color: var(--text-secondary);">alhamrizvi</span>
+                        </a>
+                        
+                        <a href="https://twitter.com/alhamrizvii" target="_blank" class="resource-link" style="padding: 16px; background: rgba(128, 128, 128, 0.05); border-radius: 12px; text-align: center; display: block;">
+                            🐦 Twitter<br>
+                            <span style="font-size: 12px; color: var(--text-secondary);">@alhamrizvii</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Location & Availability -->
+                <div class="content-card glass-strong scroll-reveal">
+                    <h2>Location & Availability</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px; margin-top: 24px;">
+                        <div>
+                            <h3 style="font-size: 18px; margin-bottom: 12px;">📍 Location</h3>
+                            <p style="color: var(--text-secondary);">
+                                Mumbai, Maharashtra<br>
+                                India
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 style="font-size: 18px; margin-bottom: 12px;">🕐 Timezone</h3>
+                            <p style="color: var(--text-secondary);">
+                                IST (UTC+5:30)<br>
+                                India Standard Time
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h3 style="font-size: 18px; margin-bottom: 12px;">💼 Availability</h3>
+                            <p style="color: var(--text-secondary);">
+                                Open for:<br>
+                                • Bug Bounty Collaboration<br>
+                                • Security Consulting<br>
+                                • Freelance Projects<br>
+                                • Speaking Engagements
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Response Time -->
+                <div class="content-card glass-strong scroll-reveal">
+                    <h2>Response Time</h2>
+                    <p>
+                        I typically respond to emails within <strong>24-48 hours</strong> during weekdays. 
+                        For urgent security matters, please mark your email as "URGENT" in the subject line.
+                    </p>
+                    <p style="margin-top: 16px;">
+                        For immediate communication, you can reach me on Discord or LinkedIn.
+                    </p>
+                </div>
+
+                <!-- FAQ -->
+                <div class="content-card glass-strong scroll-reveal">
+                    <h2>Frequently Asked Questions</h2>
+                    <div style="margin-top: 24px;">
+                        <div style="margin-bottom: 24px;">
+                            <h3 style="font-size: 18px; margin-bottom: 8px;">Do you offer security consulting services?</h3>
+                            <p style="color: var(--text-secondary);">
+                                Yes, I offer security consulting for web applications, APIs, and cloud infrastructure. 
+                                Contact me for rates and availability.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 24px;">
+                            <h3 style="font-size: 18px; margin-bottom: 8px;">Can you help with my CTF challenge?</h3>
+                            <p style="color: var(--text-secondary);">
+                                I'm happy to provide hints and guidance for learning purposes. However, I won't solve 
+                                ongoing CTF challenges for you.
+                            </p>
+                        </div>
+
+                        <div style="margin-bottom: 24px;">
+                            <h3 style="font-size: 18px; margin-bottom: 8px;">Are you available for speaking engagements?</h3>
+                            <p style="color: var(--text-secondary);">
+                                Yes! I'm available for conferences, webinars, and workshops on topics related to 
+                                offensive security, bug bounty hunting, and web security.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 style="font-size: 18px; margin-bottom: 8px;">How can I collaborate on a project?</h3>
+                            <p style="color: var(--text-secondary);">
+                                Send me an email with details about your project, timeline, and how you'd like to 
+                                collaborate. I'm always interested in innovative security projects.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Navigation</h4>
+                <div class="footer-links">
+                    <a href="../index.html" class="footer-link">Home</a>
+                    <a href="../index.html#about" class="footer-link">About</a>
+                    <a href="../index.html#skills" class="footer-link">Skills</a>
+                    <a href="../index.html#projects" class="footer-link">Projects</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Pages</h4>
+                <div class="footer-links">
+                    <a href="resources.html" class="footer-link">Resources</a>
+                    <a href="license.html" class="footer-link">License</a>
+                    <a href="contact.html" class="footer-link">Contact</a>
+                    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Location</h4>
+                <div class="footer-links">
+                    <span class="footer-link" style="cursor: default;">📍 Mumbai, Maharashtra</span>
+                    <span class="footer-link" style="cursor: default;">🇮🇳 India</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Alham Rizvi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
