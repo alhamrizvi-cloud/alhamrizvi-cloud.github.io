@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Alham Rizvi - Offensive Security Researcher">
+    <title>About - Alham Rizvi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #000000;
+            --text-secondary: #4a4a4a;
+            --glass-bg: rgba(255, 255, 255, 0.3);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.05);
+            --accent: #000000;
+            --accent-rgb: 0, 0, 0;
+            --transition-smooth: cubic-bezier(0.4, 0.0, 0.2, 1);
+            --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --text-primary: #ffffff;
+            --text-secondary: #a8a8a8;
+            --glass-bg: rgba(0, 0, 0, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: rgba(255, 255, 255, 0.05);
+            --accent: #ffffff;
+            --accent-rgb: 255, 255, 255;
+        }
+
+        [data-color="blue"] { --accent: #3b82f6; --accent-rgb: 59, 130, 246; }
+        [data-color="purple"] { --accent: #8b5cf6; --accent-rgb: 139, 92, 246; }
+        [data-color="green"] { --accent: #10b981; --accent-rgb: 16, 185, 129; }
+        [data-color="red"] { --accent: #ef4444; --accent-rgb: 239, 68, 68; }
+        [data-color="orange"] { --accent: #f59e0b; --accent-rgb: 245, 158, 11; }
+        [data-color="pink"] { --accent: #ec4899; --accent-rgb: 236, 72, 153; }
+
+        body {
+            font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background 0.8s var(--transition-smooth), color 0.8s var(--transition-smooth);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(var(--accent-rgb), 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(var(--accent-rgb), 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: bgPulse 20s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        .glass-strong {
+            background: var(--glass-bg);
+            backdrop-filter: blur(70px) saturate(200%);
+            -webkit-backdrop-filter: blur(70px) saturate(200%);
+            border: 1.5px solid var(--glass-border);
+            box-shadow: 
+                0 12px 48px 0 var(--glass-shadow),
+                inset 0 1px 2px 0 rgba(255, 255, 255, 0.15);
+            transition: all 0.6s var(--transition-smooth);
+        }
+
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            padding: 12px 20px;
+            border-radius: 50px;
+            width: calc(100% - 40px);
+            max-width: 700px;
+            animation: slideDown 1s var(--transition-spring);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translate(-50%, -40px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: rgba(128, 128, 128, 0.1);
+            border: none;
+            border-radius: 30px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(128, 128, 128, 0.2);
+            transform: translateX(-4px);
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            background: rgba(128, 128, 128, 0.1);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s var(--transition-spring);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(128, 128, 128, 0.2);
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .theme-icon {
+            font-size: 20px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 140px auto 80px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 1s var(--transition-smooth);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            gap: 40px;
+        }
+
+        .section-card {
+            padding: 50px;
+            border-radius: 32px;
+            animation: fadeInUp 0.8s var(--transition-smooth) backwards;
+        }
+
+        .section-card:nth-child(1) { animation-delay: 0.1s; }
+        .section-card:nth-child(2) { animation-delay: 0.2s; }
+        .section-card:nth-child(3) { animation-delay: 0.3s; }
+        .section-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .section-card h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-card h3 {
+            font-size: 22px;
+            margin-bottom: 16px;
+            margin-top: 32px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .section-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .section-card li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .section-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .skill-item {
+            padding: 24px;
+            background: rgba(128, 128, 128, 0.05);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-8px);
+            background: rgba(128, 128, 128, 0.1);
+        }
+
+        .skill-item h4 {
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .download-resume {
+            text-align: center;
+            margin-top: 60px;
+            padding: 60px 40px;
+            border-radius: 32px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 20px 48px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.5s var(--transition-spring);
+            box-shadow: 0 8px 24px var(--glass-shadow);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 60px var(--glass-shadow);
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                padding: 32px 24px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="glass-strong">
+        <div class="nav-content">
+            <a href="index.html" class="back-btn">
+                ← Back to Home
+            </a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <span class="theme-icon">☀️</span>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <header class="page-header">
+            <h1>About Me</h1>
+            <p class="subtitle">
+                Offensive Security Researcher specializing in Web, API, Network & Cloud Security
+            </p>
+        </header>
+
+        <div class="content-grid">
+            <section class="section-card glass-strong">
+                <h2>👋 Introduction</h2>
+                <p>
+                    Hi, I'm Alham Rizvi, an Offensive Cybersecurity Analyst and Security Researcher based in Mumbai, Maharashtra, India. 
+                    I'm widely recognized in the cybersecurity community for my technical write-ups and contributions to security platforms.
+                </p>
+                <p>
+                    My journey in cybersecurity has been driven by a passion for discovering vulnerabilities and helping organizations 
+                    build more secure systems. I specialize in web application security, API testing, and penetration testing across 
+                    various environments including cloud and AI systems.
+                </p>
+            </section>
+
+            <section class="section-card glass-strong">
+                <h2>🎯 Professional Expertise</h2>
+                
+                <h3>Core Competencies</h3>
+                <ul>
+                    <li>Web Application Security Testing</li>
+                    <li>API Security & Exploitation</li>
+                    <li>Network Penetration Testing</li>
+                    <li>Cloud Security Assessments</li>
+                    <li>AI Environment Security</li>
+                    <li>Bug Bounty Hunting</li>
+                    <li>Red Team Operations</li>
+                    <li>Security Research & Tool Development</li>
+                </ul>
+
+                <h3>Technical Skills</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <h4>🔍 Reconnaissance</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary);">
+                            Nmap, Amass, Subfinder, Masscan, Shodan
+                        </p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>🛠️ Exploitation</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary);">
+                            Burp Suite, Metasploit, SQLmap, XSStrike
+                        </p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>📊 Analysis</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary);">
+                            Wireshark, tcpdump, Ghidra, IDA Pro
+                        </p>
+                    </div>
+                    <div class="skill-item">
+                        <h4>💻 Programming</h4>
+                        <p style="font-size: 14px; color: var(--text-secondary);">
+                            Python, Bash, Go, JavaScript, PHP
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section-card glass-strong">
+                <h2>🏆 Achievements & Recognition</h2>
+                <ul>
+                    <li>Top 2,000 globally on TryHackMe with 300+ rooms completed</li>
+                    <li>Active contributor on HackTheBox and PicoCTF platforms</li>
+                    <li>Published security researcher on Medium and WordPress</li>
+                    <li>Developer of multiple open-source security tools</li>
+                    <li>Regular participant in CTF competitions</li>
+                    <li>Community member on various security platforms</li>
+                </ul>
+            </section>
+
+            <section class="section-card glass-strong">
+                <h2>🎓 Certifications</h2>
+                <ul>
+                    <li>CRTA (Certified Red Team Analyst) - CyberWarfare Labs</li>
+                    <li>Google Cybersecurity Professional Certificate</li>
+                    <li>Cisco Certified Ethical Hacking</li>
+                    <li>Junior Penetration Tester Certification</li>
+                </ul>
+            </section>
+
+            <section class="section-card glass-strong">
+                <h2>🚀 Open Source Contributions</h2>
+                <p>
+                    I actively contribute to the cybersecurity community through open-source tool development:
+                </p>
+                <ul>
+                    <li><strong>ParameterX</strong> - Advanced parameter discovery tool</li>
+                    <li><strong>XSSion</strong> - Fastest Reflected XSS Finder</li>
+                    <li><strong>urlx</strong> - Multi-source URL discovery tool</li>
+                    <li><strong>tr01d</strong> - Sensitive information extraction tool</li>
+                    <li><strong>rapzy</strong> - Web UI Subdomain Enumeration</li>
+                    <li><strong>Bug Bounty Roadmap</strong> - Comprehensive learning guide</li>
+                </ul>
+            </section>
+
+            <section class="section-card glass-strong">
+                <h2>📚 Education & Learning</h2>
+                <p>
+                    I believe in continuous learning and stay updated with the latest security trends through:
+                </p>
+                <ul>
+                    <li>Active participation in CTF platforms (TryHackMe, HackTheBox, PicoCTF)</li>
+                    <li>Reading security research papers and blogs</li>
+                    <li>Attending security conferences and webinars</li>
+                    <li>Contributing to security communities</li>
+                    <li>Sharing knowledge through writeups and tutorials</li>
+                </ul>
+            </section>
+
+            <div class="download-resume glass-strong">
+                <h2 style="margin-bottom: 24px;">Download My Resume</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Get a comprehensive overview of my skills, experience, and achievements in cybersecurity.
+                </p>
+                <a href="#" class="download-btn" download>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Resume
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.querySelector('.theme-icon');
+        const html = document.documentElement;
+
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme) {
+            html.setAttribute('data-theme', savedTheme);
+            themeIcon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+        } else if (systemPrefersDark) {
+            html.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '🌙';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        });
+
+        const savedColor = localStorage.getItem('accentColor') || 'default';
+        html.setAttribute('data-color', savedColor);
+    </script>
+</body>
+</html>
